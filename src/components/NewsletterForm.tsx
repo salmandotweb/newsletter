@@ -14,7 +14,7 @@ function NewsletterForm() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { to, fromTo, set } = gsap;
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const email = input;
@@ -32,21 +32,12 @@ function NewsletterForm() {
       to(button, { keyframes: getTrailsKeyframes(button) });
     }
 
-    const res = await fetch("/api/addSubscription", {
-      body: JSON.stringify({ email }),
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-    });
-    const data = await res.json();
+    setErrorMessage("Hey, you are already subscribed!");
+    setSuccessMessage(undefined);
+    return;
 
-    if (data.error) {
-      setErrorMessage("Hey, you are already subscribed!");
-      setSuccessMessage(undefined);
-      return;
-    }
-
-    setSuccessMessage(data.res);
-    setErrorMessage("");
+    // setSuccessMessage(data.res);
+    // setErrorMessage("");
   };
 
   const dismissMessages = () => {
@@ -98,7 +89,7 @@ function NewsletterForm() {
       </form>
 
       <div className="relative">
-        {(successMessage || errorMessage) && (
+        {(successMessage ?? errorMessage) && (
           <div className="shadow-outline-gray animate-fade-bottom absolute flex items-start space-x-2 rounded-[9px] bg-[#0A0E12] px-6 py-4 text-white">
             <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-[#273130] bg-[#1B2926]">
               <CheckIcon className="h-4 w-4 text-[#81A89A]" />
