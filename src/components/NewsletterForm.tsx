@@ -4,8 +4,10 @@ import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { gsap } from "gsap";
 import { FormEvent, useRef, useState } from "react";
+import { api } from "~/utils/api";
 
 function NewsletterForm() {
+  const subscribe = api.subscription.subscribe.useMutation();
   const [input, setInput] = useState("");
   const [successMessage, setSuccessMessage] =
     useState<MembersSuccessResponse>();
@@ -31,6 +33,10 @@ function NewsletterForm() {
 
       to(button, { keyframes: getTrailsKeyframes(button) });
     }
+
+    subscribe.mutate({
+      email: email,
+    });
 
     setErrorMessage("Hey, you are already subscribed!");
     setSuccessMessage(undefined);

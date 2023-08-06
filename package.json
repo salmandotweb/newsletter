@@ -16,6 +16,7 @@
     "@trpc/next": "^10.26.0",
     "@trpc/react-query": "^10.26.0",
     "@trpc/server": "^10.26.0",
+    "aws-sdk": "^2.1430.0",
     "gsap": "^3.12.2",
     "next": "^13.4.2",
     "react": "18.2.0",
@@ -25,6 +26,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
     "@types/eslint": "^8.37.0",
     "@types/node": "^18.16.0",
     "@types/prettier": "^2.7.2",
